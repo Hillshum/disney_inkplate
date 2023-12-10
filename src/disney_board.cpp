@@ -2,8 +2,8 @@
 #include "generatedUI.h"
 #include "arduino_secrets.h"
 #include "time_helpers.h"
+#include "time_screen.h"
 Inkplate display(INKPLATE_3BIT);
-
 
 void connectWifi()
 {
@@ -33,40 +33,38 @@ void connectWifi()
     }
 } //======================== END WIFI CONNECT =======================
 
-void setup() {
+void setup()
+{
 
-  Serial.begin(115200);
-  while (!Serial)
-  {
-    ;
-  }
+    Serial.begin(115200);
+    while (!Serial)
+    {
+        ;
+    }
 
-  Serial.println("serial monitor initialized");
-  display.begin();
-  display.clearDisplay(); 
+    Serial.println("serial monitor initialized");
+    display.begin();
+    display.clearDisplay();
 
-  display.setTextColor(0,7);
-  display.setCursor(150, 320);
-  display.setTextSize(4);
-  display.print("Welcome to Inkplate 6!");
-  display.display();
+    display.setTextColor(0, 7);
+    display.setCursor(150, 320);
+    display.setTextSize(4);
+    display.print("Welcome to Inkplate 6!");
+    display.display();
 
-  connectWifi();
+    init_timescreen();
 
-  initializeTime(true, true);
-  Serial.println("got time");
-  display.clearDisplay();
-  mainDraw();
-  display.display();
-  delay(3000);
+    connectWifi();
+
+    get_weather();
+
+    Serial.println("got weather");
+    display.clearDisplay();
+    mainDraw();
+    display.display();
+    delay(3000);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  time_t now;
-  time(&now);
-  Serial.printf("Time is %d\n", now);
-  // Serial.println("hello");
-  delay(5000);
-
+void loop()
+{
 }

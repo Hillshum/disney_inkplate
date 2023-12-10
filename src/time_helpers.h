@@ -1,3 +1,6 @@
+#ifndef TIME_HELPERS_H
+#define TIME_HELPERS_H
+
 #include "Inkplate.h"
 
 void initializeTime(bool isFirstBoot = false, bool pingNtp = false)
@@ -19,3 +22,5 @@ void initializeTime(bool isFirstBoot = false, bool pingNtp = false)
     }
 
 }
+
+#endif // TIME_HELPERS_H
