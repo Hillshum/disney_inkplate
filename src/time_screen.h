@@ -63,19 +63,27 @@ void get_weather()
         int i = 0;
         for (JsonObject parkObj : parksArray)
         {
-            String name = parkObj["name"].as<String>();
+            String name = parkObj["city"].as<String>();
             time_t epoch = parkObj["time"].as<int>();
             float temp = parkObj["temperature"].as<float>();
-            String conditions = parkObj["conditions"].as<String>();
+            int conditions = parkObj["conditions"].as<int>();
 
+            Serial.printf("epoch in %s: %d\n", name, epoch);
 
             // time_t unixTimestamp = parks[i].time; // Replace with your Unix timestamp
 
             // Using gmtime
             tm* timeinfo = gmtime(&epoch);
+
+            int hour = timeinfo->tm_hour % 12;
+            if (hour == 0)
+            {
+                hour = 12;
+            }
+            bool isAM = timeinfo->tm_hour < 12;
             
             clockRows[i]->setName(name);
-            clockRows[i]->setHours(timeinfo->tm_hour);
+            clockRows[i]->setHours(hour);
             clockRows[i]->setMinutes(timeinfo->tm_min);
             i++;
 
@@ -83,28 +91,6 @@ void get_weather()
             {
                 break;
             }
-
-            // Using localtime
-            // tm* timeinfo = localtime(&unixTimestamp);
-
-            // // Access the individual components of the time struct
-            // int year = timeinfo->tm_year + 1900; // Years since 1900
-            // int month = timeinfo->tm_mon + 1;    // Months since January (0-11)
-            // int day = timeinfo->tm_mday;         // Day of the month (1-31)
-            // int hour = timeinfo->tm_hour;        // Hours since midnight (0-23)
-            // int minute = timeinfo->tm_min;       // Minutes after the hour (0-59)
-            // int second = timeinfo->tm_sec;       // Seconds after the minute (0-60)
-
-            // // Print the converted time
-            // printf("Year: %d\n", year);
-            // printf("Month: %d\n", month);
-            // printf("Day: %d\n", day);
-            // printf("Hour: %d\n", hour);
-            // printf("Minute: %d\n", minute);
-            // printf("Second: %d\n", second);
-
-            // clockRows[i]->setMinutes(parks[i].temperature);
-
         }
     }
     else
