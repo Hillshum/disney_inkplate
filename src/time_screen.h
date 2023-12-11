@@ -4,6 +4,7 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "time_screen_helpers.h"
+#include "conditions.h"
 #include "generatedUI.h"
 
 #define CLOCK_ROW_COUNT 6
@@ -21,6 +22,7 @@ ClockRow* clockRows[CLOCK_ROW_COUNT];
 void init_timescreen()
 {
     initClockRows(clockRows);
+    initConditions();
 }
 
 void get_weather()
@@ -45,8 +47,9 @@ void get_weather()
         Serial.println(payload);
 
         // Parse the JSON array
-        DynamicJsonDocument response(4096);
+        DynamicJsonDocument response(4096 * 2);
         DeserializationError error = deserializeJson(response, payload);
+        Serial.println("deserialized json");
 
         // Check for parsing errors
         if (error)
@@ -66,7 +69,10 @@ void get_weather()
             String name = parkObj["city"].as<String>();
             time_t epoch = parkObj["time"].as<int>();
             float temp = parkObj["temperature"].as<float>();
-            int conditions = parkObj["conditions"].as<int>();
+            int conditionCode = parkObj["conditions"].as<int>() - 1000; // indexes offset to make array smaller
+            Serial.printf("condition code: %d\n", conditionCode);
+            int iconId = conditions[conditionCode]->iconId;
+            // int iconId = 374;
 
             Serial.printf("epoch in %s: %d\n", name, epoch);
 
@@ -85,6 +91,9 @@ void get_weather()
             clockRows[i]->setName(name);
             clockRows[i]->setHours(hour);
             clockRows[i]->setMinutes(timeinfo->tm_min);
+            clockRows[i]->setIconId(iconId);
+            clockRows[i]->setIconUrl("https://disney.hillshum.com/assets/icons/" + String(iconId) + ".png");
+            Serial.printf("icon url: %s\n", clockRows[i]->getIconUrl().c_str());
             i++;
 
             if (i >= CLOCK_ROW_COUNT)
@@ -101,6 +110,21 @@ void get_weather()
 
     // Close the connection
     http.end();
+}
+
+void draw_timescreen()
+{
+    display.clearDisplay();
+
+    for (int i = 0; i < CLOCK_ROW_COUNT; i++)
+    {
+        bool success = clockRows[i]->drawIcon();
+        Serial.printf("draw icon %d: %d\n", i, success);
+
+    }
+
+    mainDraw();
+    display.display();
 }
 
 #endif // TIME_SCREEN_H

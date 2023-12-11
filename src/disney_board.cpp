@@ -3,6 +3,7 @@
 #include "arduino_secrets.h"
 #include "time_helpers.h"
 #include "time_screen.h"
+
 Inkplate display(INKPLATE_3BIT);
 
 void connectWifi()
@@ -60,8 +61,7 @@ void setup()
 
     Serial.println("got weather");
     display.clearDisplay();
-    mainDraw();
-    display.display();
+    draw_timescreen();
     delay(3000);
 }
 
