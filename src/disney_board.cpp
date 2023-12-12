@@ -1,5 +1,5 @@
 #include "Inkplate.h"
-#include "generatedUI.h"
+#include "ui_wrapper.h"
 #include "arduino_secrets.h"
 #include "time_helpers.h"
 #include "time_screen.h"

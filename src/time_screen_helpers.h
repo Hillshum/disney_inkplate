@@ -1,10 +1,12 @@
-#include "generatedUI.h"
+#include "ui_wrapper.h"
 #include "icons.h"
 
 class ClockRow {
 private:
     int* hours;
     int* minutes;
+    String* name;
+    String* temperature;
 
     String iconUrl;
     int iconId;
@@ -12,15 +14,15 @@ private:
     int iconX;
     int iconY;
 
-    String* name;
 
 public:
-    ClockRow(int* hours, int* minutes, String* name, int iconX, int iconY) {
+    ClockRow(int* hours, int* minutes, String* name, String* temperature, int iconX, int iconY) {
         this->hours = hours;
         this->minutes = minutes;
         this->name = name;
         this->iconX = iconX;
         this->iconY = iconY;
+        this->temperature = temperature;
     }
 
     int getHours() {
@@ -47,6 +49,14 @@ public:
         *name = newName;
     }
 
+    String getTemperature() {
+        return *temperature;
+    } 
+
+    void setTemperature(const String &newTemperature) {
+        *temperature = newTemperature;
+    }
+
     String getIconUrl() {
         return iconUrl;
     }   
@@ -63,10 +73,6 @@ public:
         iconId = newIconId;
     }
 
-    // bool drawIcon() {
-    //     return display.drawImage(iconUrl, display.PNG, iconX, iconY);
-    // }
-
     bool drawIcon() {
 
         display.drawBitmap(iconX, iconY, icons[iconId], 64 , 64, 0, 7);
@@ -75,10 +81,10 @@ public:
 };
 
 void initClockRows(ClockRow* clockRows[]) {
-    clockRows[0] = new ClockRow(&digital_clock0_h, &digital_clock0_m, &text1_content, 650, 60);
-    clockRows[1] = new ClockRow(&digital_clock2_h, &digital_clock2_m, &text2_content, 650, 150);
-    clockRows[2] = new ClockRow(&digital_clock3_h, &digital_clock3_m, &text3_content, 650, 240);
-    clockRows[3] = new ClockRow(&digital_clock4_h, &digital_clock4_m, &text4_content, 650, 330);
-    clockRows[4] = new ClockRow(&digital_clock5_h, &digital_clock5_m, &text5_content, 650, 420);
-    clockRows[5] = new ClockRow(&digital_clock6_h, &digital_clock6_m, &text6_content, 650, 510);
+    clockRows[0] = new ClockRow(&digital_clock0_h, &digital_clock0_m, &text1_content, &text7_content, 650, 60);
+    clockRows[1] = new ClockRow(&digital_clock2_h, &digital_clock2_m, &text2_content, &text8_content, 650, 150);
+    clockRows[2] = new ClockRow(&digital_clock3_h, &digital_clock3_m, &text3_content, &text9_content, 650, 240);
+    clockRows[3] = new ClockRow(&digital_clock4_h, &digital_clock4_m, &text4_content, &text10_content, 650, 330);
+    clockRows[4] = new ClockRow(&digital_clock5_h, &digital_clock5_m, &text5_content, &text11_content, 650, 420);
+    clockRows[5] = new ClockRow(&digital_clock6_h, &digital_clock6_m, &text6_content, &text12_content, 650, 510);
 }

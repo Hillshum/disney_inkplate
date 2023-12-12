@@ -1,5 +1,3 @@
-#ifndef GENERATEDUI_H
-#define GENERATEDUI_H
 #include "Arduino.h"
 #include "Inkplate.h"
 #include "Fonts/FreeSansBold24pt7b.h"
@@ -18,12 +16,12 @@ int digital_clock0_maxX = 310;
 int digital_clock0_maxY = 440;
 
 String text1_content = "Orlando";
-int text1_cursor_x = 70;
+int text1_cursor_x = 60;
 int text1_cursor_y = 112;
 const GFXfont *text1_font = &FreeSansBold24pt7b;
 
 String text2_content = "Anaheim";
-int text2_cursor_x = 70;
+int text2_cursor_x = 60;
 int text2_cursor_y = 202;
 const GFXfont *text2_font = &FreeSansBold24pt7b;
 
@@ -39,17 +37,17 @@ int digital_clock2_maxX = 310;
 int digital_clock2_maxY = 440;
 
 String text3_content = "Paris";
-int text3_cursor_x = 70;
+int text3_cursor_x = 60;
 int text3_cursor_y = 292;
 const GFXfont *text3_font = &FreeSansBold24pt7b;
 
 String text4_content = "Tokyo";
-int text4_cursor_x = 70;
+int text4_cursor_x = 60;
 int text4_cursor_y = 382;
 const GFXfont *text4_font = &FreeSansBold24pt7b;
 
 String text5_content = "Hong Kong";
-int text5_cursor_x = 70;
+int text5_cursor_x = 60;
 int text5_cursor_y = 472;
 const GFXfont *text5_font = &FreeSansBold24pt7b;
 
@@ -98,9 +96,39 @@ int digital_clock6_maxX = 310;
 int digital_clock6_maxY = 440;
 
 String text6_content = "Shanghai";
-int text6_cursor_x = 70;
+int text6_cursor_x = 60;
 int text6_cursor_y = 562;
 const GFXfont *text6_font = &FreeSansBold24pt7b;
+
+String text7_content = "14F";
+int text7_cursor_x = 520;
+int text7_cursor_y = 112;
+const GFXfont *text7_font = &FreeSansBold24pt7b;
+
+String text8_content = "14F";
+int text8_cursor_x = 520;
+int text8_cursor_y = 202;
+const GFXfont *text8_font = &FreeSansBold24pt7b;
+
+String text9_content = "36°F";
+int text9_cursor_x = 520;
+int text9_cursor_y = 292;
+const GFXfont *text9_font = &FreeSansBold24pt7b;
+
+String text10_content = "43F";
+int text10_cursor_x = 520;
+int text10_cursor_y = 382;
+const GFXfont *text10_font = &FreeSansBold24pt7b;
+
+String text11_content = "335F";
+int text11_cursor_x = 520;
+int text11_cursor_y = 472;
+const GFXfont *text11_font = &FreeSansBold24pt7b;
+
+String text12_content = "35F";
+int text12_cursor_x = 520;
+int text12_cursor_y = 562;
+const GFXfont *text12_font = &FreeSansBold24pt7b;
 
 void mainDraw() {
     for (int i = 0; i < 4; ++i) {
@@ -271,6 +299,28 @@ void mainDraw() {
     display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text6_cursor_x, text6_cursor_y);
     display.print(text6_content);
 
-}
+    display.setFont(text7_font);
+    display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text7_cursor_x, text7_cursor_y);
+    display.print(text7_content);
 
-#endif //GENERATEDUI_H
+    display.setFont(text8_font);
+    display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text8_cursor_x, text8_cursor_y);
+    display.print(text8_content);
+
+    display.setFont(text9_font);
+    display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text9_cursor_x, text9_cursor_y);
+    display.print(text9_content);
+
+    display.setFont(text10_font);
+    display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text10_cursor_x, text10_cursor_y);
+    display.print(text10_content);
+
+    display.setFont(text11_font);
+    display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text11_cursor_x, text11_cursor_y);
+    display.print(text11_content);
+
+    display.setFont(text12_font);
+    display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text12_cursor_x, text12_cursor_y);
+    display.print(text12_content);
+
+}

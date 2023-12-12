@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include "time_screen_helpers.h"
 #include "conditions.h"
-#include "generatedUI.h"
+#include "ui_wrapper.h"
 
 #define CLOCK_ROW_COUNT 6
 
@@ -92,6 +92,7 @@ void get_weather()
             clockRows[i]->setHours(hour);
             clockRows[i]->setMinutes(timeinfo->tm_min);
             clockRows[i]->setIconId(iconId);
+            clockRows[i]->setTemperature(String(temp, 1) + "°F");
             clockRows[i]->setIconUrl("https://disney.hillshum.com/assets/icons/" + String(iconId) + ".png");
             Serial.printf("icon url: %s\n", clockRows[i]->getIconUrl().c_str());
             i++;
