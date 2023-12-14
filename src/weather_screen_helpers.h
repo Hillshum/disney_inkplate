@@ -1,4 +1,4 @@
-#include "ui_wrapper.h"
+#include "weather_screen_wrapper.h"
 #include "icons.h"
 
 class ClockRow {
@@ -81,6 +81,7 @@ public:
 };
 
 void initClockRows(ClockRow* clockRows[]) {
+    using namespace weatherScreen; 
     clockRows[0] = new ClockRow(&digital_clock0_h, &digital_clock0_m, &text1_content, &text7_content, 650, 60);
     clockRows[1] = new ClockRow(&digital_clock2_h, &digital_clock2_m, &text2_content, &text8_content, 650, 150);
     clockRows[2] = new ClockRow(&digital_clock3_h, &digital_clock3_m, &text3_content, &text9_content, 650, 240);

@@ -1,11 +1,11 @@
-#ifndef TIME_SCREEN_H
-#define TIME_SCREEN_H
+#ifndef WEATEHR_SCREEN_H
+#define WEATHER_SCREEN_H
 
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
-#include "time_screen_helpers.h"
+#include "weather_screen_helpers.h"
 #include "conditions.h"
-#include "ui_wrapper.h"
+#include "weather_screen_wrapper.h"
 
 #define CLOCK_ROW_COUNT 6
 
@@ -124,8 +124,8 @@ void draw_timescreen()
 
     }
 
-    mainDraw();
+    weatherScreen::mainDraw();
     display.display();
 }
 
-#endif // TIME_SCREEN_H
+#endif // WEATHER_SCREEN_H

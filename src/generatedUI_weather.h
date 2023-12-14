@@ -4,6 +4,7 @@
 
 extern Inkplate display;
 
+namespace weatherScreen {
 int digital_clock0_h = 9;
 int digital_clock0_m = 41;
 int digital_clock0_location_x = 300;
@@ -323,4 +324,5 @@ void mainDraw() {
     display.setTextColor(0, 7);    display.setTextSize(1);    display.setCursor(text12_cursor_x, text12_cursor_y);
     display.print(text12_content);
 
+}
 }
