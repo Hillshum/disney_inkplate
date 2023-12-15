@@ -3,6 +3,7 @@
 #include "arduino_secrets.h"
 #include "time_helpers.h"
 #include "weather_screen.h"
+#include "waits_screen_wrapper.h"
 
 Inkplate display(INKPLATE_3BIT);
 
@@ -46,6 +47,11 @@ void setup()
     Serial.println("serial monitor initialized");
     display.begin();
     display.clearDisplay();
+
+    ResortWaitsScreen::mainDraw();
+    display.display();
+
+    return;
 
     display.setTextColor(0, 7);
     display.setCursor(150, 320);
