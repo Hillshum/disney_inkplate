@@ -1,3 +1,6 @@
+#ifndef ROBOTO_LIGHT_36_H
+#define ROBOTO_LIGHT_36_H
+
 // Created by http://oleddisplay.squix.ch/ Consider a donation
 // In case of problems make sure that you are using the font file with the correct version!
 const uint8_t Roboto_Light_36Bitmaps[] PROGMEM = {
@@ -197,3 +200,4 @@ const GFXglyph Roboto_Light_36Glyphs[] PROGMEM = {
 };
 const GFXfont Roboto_Light_36 PROGMEM = {
 	(uint8_t *)Roboto_Light_36Bitmaps, (GFXglyph *)Roboto_Light_36Glyphs, 0x20, 0x7E, 43};
+#endif // ROBOTO_LIGHT_36_H
