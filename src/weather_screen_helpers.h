@@ -1,5 +1,5 @@
 #include "weather_screen_wrapper.h"
-#include "icons.h"
+#include "binary_icons/day/day_icons.h"
 
 class ClockRow {
 private:
@@ -75,7 +75,7 @@ public:
 
     bool drawIcon() {
 
-        display.drawBitmap(iconX, iconY, icons[iconId], 64 , 64, 0, 7);
+        display.drawBitmap(iconX, iconY, day_icons[iconId], 64 , 64, 0, 7);
         return 1;
     }
 };

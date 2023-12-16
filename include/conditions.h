@@ -1,7 +1,6 @@
 #ifndef CONDITIONS_H
 #define CONDITIONS_H
 
-#include "icons.h"
 
 
 struct Condition {
