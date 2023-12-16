@@ -1,5 +1,6 @@
 #include "weather_screen_wrapper.h"
 #include "binary_icons/day/day_icons.h"
+#include "binary_icons/night/night_icons.h"
 
 class ClockRow {
 private:

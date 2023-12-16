@@ -8,7 +8,7 @@
 # -----------
 
 import json
-import os, sys
+import os
 import pathlib
 
 from PIL import Image
@@ -21,10 +21,10 @@ if not os.path.isdir(ROOT_DESTINATION):
 
 ICON_SIZE = 64
 
-ids = []
 
 def process_folder(fname):
     # fname = pathlib.Path(fname)
+    ids = []
     if not os.path.isdir(ROOT_DESTINATION / fname):
         os.mkdir(os.path.abspath(os.getcwd()) / ROOT_DESTINATION / fname)
     for file in os.listdir(pathlib.Path("./icons") / fname):
@@ -43,9 +43,9 @@ def process_folder(fname):
                 if alp.getpixel((x, y)) > 128:
                     s[(x + ICON_SIZE * y) // 8] |= 1 << (7 - (x + ICON_SIZE * y) % 8)
 
-        filename = "icon_" + iconId + ".h"
+        filename = f"icon_{fname}_{iconId}.h"
         with open(ROOT_DESTINATION / fname / filename, "w") as f:
-            print("const unsigned char icon_" + file[:-4] + "[] PROGMEM = {", file=f)
+            print(f"const unsigned char icon_{fname}_{file[:-4]}[] PROGMEM = {'{'}", file=f)
             print(",".join(list(map(hex, s))), file=f)
             print("};", file=f)
 
@@ -56,21 +56,21 @@ def process_folder(fname):
         f.write(f"#define {fname.upper()}_ICONS_H\n\n")
 
         for id in ids:
-            f.write(f"#include \"{ROOT_FOLDER_NAME}/{fname}/icon_{str(id)}.h\"\n") # include all files
+            f.write(f"#include \"{ROOT_FOLDER_NAME}/{fname}/icon_{fname}_{str(id)}.h\"\n") # include all files
 
         maxId = max(ids)
         f.write(f"\n\nconst unsigned char *{fname}_icons[{maxId + 5}];\n")
-        f.write("void initIcons()\n")
+        f.write(f"void init{str(fname).capitalize()}Icons()\n")
         f.write("{\n")
 
         for id in ids:
-            f.write(f"\t{fname}_icons[" + str(id) + "] = icon_" + str(id) + ";\n")
+            f.write(f'\t{fname}_icons[{str(id)}] = icon_{fname}_{str(id)};\n')
 
         f.write("};\n\n") 
 
         f.write(f"\n#endif // {fname.upper()}_ICONS_H\n")
 
-ICON_FOLDERS = ['day']
+ICON_FOLDERS = ['day', 'night']
 
 for folder in ICON_FOLDERS:
     process_folder(folder)
@@ -86,6 +86,8 @@ with open("./include/conditions.h", "w") as f:
     f.write("#ifndef CONDITIONS_H\n")
     f.write("#define CONDITIONS_H\n\n")
 
+    for folder in ICON_FOLDERS:
+        f.write(f"#include \"binary_icons/{folder}/{folder}_icons.h\"\n")
     # f.write("#include \"icons.h\"\n")
     f.write("\n\nstruct Condition {\n")
     f.write("\tString dayName;\n")
@@ -97,7 +99,9 @@ with open("./include/conditions.h", "w") as f:
     f.write(f"Condition* conditions[290];\n")
     f.write("\n\n void initConditions()\n")
     f.write("{\n")
-    f.write("\tinitIcons();\n")
+    # f.write("\tinitIcons();\n")
+    for folder in ICON_FOLDERS:
+        f.write(f"\tinit{folder.capitalize()}Icons();\n")
     for condition in conditions:
         id = condition["code"] - 1000
         f.write("\tconditions[" + str(id)  + "] = ")

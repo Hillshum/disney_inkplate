@@ -1,6 +1,8 @@
 #ifndef CONDITIONS_H
 #define CONDITIONS_H
 
+#include "binary_icons/day/day_icons.h"
+#include "binary_icons/night/night_icons.h"
 
 
 struct Condition {
@@ -14,7 +16,8 @@ Condition* conditions[290];
 
  void initConditions()
 {
-	initIcons();
+	initDayIcons();
+	initNightIcons();
 	conditions[0] = new Condition();
 	conditions[0]->dayName = "Sunny";
 	conditions[0]->nightName = "Clear";
