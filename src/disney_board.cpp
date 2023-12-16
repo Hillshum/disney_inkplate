@@ -72,9 +72,9 @@ void drawLoadScreen()
 {
     display.clearDisplay();
     display.setFont(&Roboto_Light_36);
-    display.setCursor(50, 600);
+    display.setCursor(50, 500);
     display.setTextSize(1);
-    display.print("Connecting to WiFi...");
+    display.print("Tapping into the magic...");
     display.display();
     
 }
@@ -139,6 +139,8 @@ void setup()
         if (isFirstBoot) 
         {
             display.print("connected!");
+            display.setCursor(50, 550);
+            display.print("Distilling information...");
             display.partialUpdate();
         }
 
