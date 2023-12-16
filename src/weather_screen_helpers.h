@@ -11,6 +11,7 @@ private:
 
     String iconUrl;
     int iconId;
+    bool isDay;
 
     int iconX;
     int iconY;
@@ -74,9 +75,22 @@ public:
         iconId = newIconId;
     }
 
-    bool drawIcon() {
+    bool getIsDay() {
+        return isDay;
+    }
 
-        display.drawBitmap(iconX, iconY, day_icons[iconId], 64 , 64, 0, 7);
+    void setIsDay(bool newIsDay) {
+        isDay = newIsDay;
+    }
+
+    bool drawIcon() {
+        unsigned char const * icon;
+        if (isDay) {
+            icon = day_icons[iconId];
+        } else {
+            icon = night_icons[iconId];
+        }
+        display.drawBitmap(iconX, iconY, icon, 64 , 64, 0, 7);
         return 1;
     }
 };

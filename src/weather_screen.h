@@ -64,13 +64,12 @@ void get_weather()
             time_t epoch = parkObj["time"].as<int>();
             float temp = parkObj["temperature"].as<float>();
             int conditionCode = parkObj["conditions"].as<int>() - 1000; // indexes offset to make array smaller
+            bool isDay = parkObj["isDay"].as<bool>();
             Serial.printf("condition code: %d\n", conditionCode);
             int iconId = conditions[conditionCode]->iconId;
-            // int iconId = 374;
 
             Serial.printf("epoch in %s: %d\n", name, epoch);
 
-            // time_t unixTimestamp = parks[i].time; // Replace with your Unix timestamp
 
             // Using gmtime
             tm* timeinfo = gmtime(&epoch);
@@ -87,6 +86,7 @@ void get_weather()
             clockRows[i]->setMinutes(timeinfo->tm_min);
             clockRows[i]->setIconId(iconId);
             clockRows[i]->setTemperature(String(temp,0) + "°F");
+            clockRows[i]->setIsDay(isDay);
             clockRows[i]->setIconUrl("https://disney.hillshum.com/assets/icons/" + String(iconId) + ".png");
             Serial.printf("icon url: %s\n", clockRows[i]->getIconUrl().c_str());
             i++;
