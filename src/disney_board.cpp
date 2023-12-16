@@ -23,32 +23,37 @@ RTC_DATA_ATTR char lastResort[20] = "";
 #define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
 #define TIME_TO_SLEEP 10        /* Time ESP32 will go to sleep (in seconds) */
 
+// #define SCAN_WIFI
+
 WiFiMulti wifiMulti;
 
 int connectWifi()
 {
     ADD_WIFI_AP_DETAILS(wifiMulti);
     WiFi.mode(WIFI_STA);
-    // int n = WiFi.scanNetworks();
-    // Serial.println("scan done");
-    // if (n == 0) {
-    //     Serial.println("no networks found");
-    // } 
-    // else {
-    //     Serial.print(n);
-    //     Serial.println(" networks found");
-    //     for (int i = 0; i < n; ++i) {
-    //     // Print SSID and RSSI for each network found
-    //     Serial.print(i + 1);
-    //     Serial.print(": ");
-    //     Serial.print(WiFi.SSID(i));
-    //     Serial.print(" (");
-    //     Serial.print(WiFi.RSSI(i));
-    //     Serial.print(")");
-    //     Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN)?" ":"*");
-    //     delay(10);
-    //     }
-    // }
+
+#ifdef SCAN_WIFI
+    int n = WiFi.scanNetworks();
+    Serial.println("scan done");
+    if (n == 0) {
+        Serial.println("no networks found");
+    } 
+    else {
+        Serial.print(n);
+        Serial.println(" networks found");
+        for (int i = 0; i < n; ++i) {
+        // Print SSID and RSSI for each network found
+        Serial.print(i + 1);
+        Serial.print(": ");
+        Serial.print(WiFi.SSID(i));
+        Serial.print(" (");
+        Serial.print(WiFi.RSSI(i));
+        Serial.print(")");
+        Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN)?" ":"*");
+        }
+    }
+
+#endif // SCAN_WIFI
 
     Serial.println("Connecting Wifi...");
     if (wifiMulti.run() == WL_CONNECTED) {
