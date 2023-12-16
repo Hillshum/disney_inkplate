@@ -1,3 +1,4 @@
+#include <WiFiMulti.h>
 #include "Inkplate.h"
 #include "driver/rtc_io.h"
 #include "weather_screen_wrapper.h"
@@ -19,34 +20,45 @@ RTC_DATA_ATTR bool isFirstBoot = true;
 RTC_DATA_ATTR char lastResort[20] = "";
 
 #define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
+#define TIME_TO_SLEEP 10        /* Time ESP32 will go to sleep (in seconds) */
 
-void connectWifi()
+WiFiMulti wifiMulti;
+
+int connectWifi()
 {
+    ADD_WIFI_AP_DETAILS(wifiMulti);
+    WiFi.mode(WIFI_STA);
+    // int n = WiFi.scanNetworks();
+    // Serial.println("scan done");
+    // if (n == 0) {
+    //     Serial.println("no networks found");
+    // } 
+    // else {
+    //     Serial.print(n);
+    //     Serial.println(" networks found");
+    //     for (int i = 0; i < n; ++i) {
+    //     // Print SSID and RSSI for each network found
+    //     Serial.print(i + 1);
+    //     Serial.print(": ");
+    //     Serial.print(WiFi.SSID(i));
+    //     Serial.print(" (");
+    //     Serial.print(WiFi.RSSI(i));
+    //     Serial.print(")");
+    //     Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN)?" ":"*");
+    //     delay(10);
+    //     }
+    // }
 
-    int ConnectCount = 20;
-
-    if (WiFi.status() != WL_CONNECTED)
-    {
-        WiFi.mode(WIFI_STA);
-        while (WiFi.status() != WL_CONNECTED)
-        {
-            if (ConnectCount++ == 20)
-            {
-                Serial.println("Connect WiFi");
-                WiFi.begin(SECRET_SSID, SECRET_WIFI_PW);
-                Serial.print("Connecting.");
-                ConnectCount = 0;
-            }
-            Serial.print(".");
-            delay(1000);
-        }
-        Serial.print("\nConnected to: ");
-        Serial.println(SECRET_SSID);
+    Serial.println("Connecting Wifi...");
+    if (wifiMulti.run() == WL_CONNECTED) {
+        Serial.println("");
+        Serial.println("WiFi connected");
         Serial.println("IP address: ");
         Serial.println(WiFi.localIP());
-        Serial.println("Connected WiFi");
+        return true;
     }
-} //======================== END WIFI CONNECT =======================
+    return false;
+}
 
 void drawLoadScreen()
 {
@@ -109,7 +121,7 @@ void setup()
             break;
     }
 
-    esp_sleep_enable_timer_wakeup(5 * uS_TO_S_FACTOR);
+    esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
     esp_deep_sleep_start();
 }
 
