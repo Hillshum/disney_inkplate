@@ -12,13 +12,6 @@
 
 ClockRow* clockRows[CLOCK_ROW_COUNT];
 
-// struct Park
-// {
-//     String name;
-//     int time;
-//     float temperature;
-//     String conditions;
-// };
 
 void init_timescreen()
 {
