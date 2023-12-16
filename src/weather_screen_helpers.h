@@ -2,6 +2,11 @@
 #include "binary_icons/day/day_icons.h"
 #include "binary_icons/night/night_icons.h"
 
+
+#define ICON_X 700
+#define ICON_Y_START 95
+#define ICON_Y_INCREMENT 85
+#define ICON_Y(i) ICON_Y_START + ICON_Y_INCREMENT * (i)
 class ClockRow {
 private:
     int* hours;
@@ -100,10 +105,10 @@ public:
 
 void initClockRows(ClockRow* clockRows[]) {
     using namespace weatherScreen; 
-    clockRows[0] = new ClockRow(&digital_clock0_h, &digital_clock0_m, &text1_content, &text7_content, 650, 60);
-    clockRows[1] = new ClockRow(&digital_clock2_h, &digital_clock2_m, &text2_content, &text8_content, 650, 150);
-    clockRows[2] = new ClockRow(&digital_clock3_h, &digital_clock3_m, &text3_content, &text9_content, 650, 240);
-    clockRows[3] = new ClockRow(&digital_clock4_h, &digital_clock4_m, &text4_content, &text10_content, 650, 330);
-    clockRows[4] = new ClockRow(&digital_clock5_h, &digital_clock5_m, &text5_content, &text11_content, 650, 420);
-    clockRows[5] = new ClockRow(&digital_clock6_h, &digital_clock6_m, &text6_content, &text12_content, 650, 510);
+    clockRows[0] = new ClockRow(&digital_clock0_h, &digital_clock0_m, &text1_content, &text7_content, ICON_X, ICON_Y(0));
+    clockRows[1] = new ClockRow(&digital_clock2_h, &digital_clock2_m, &text2_content, &text8_content, ICON_X, ICON_Y(1));
+    clockRows[2] = new ClockRow(&digital_clock3_h, &digital_clock3_m, &text3_content, &text9_content, ICON_X, ICON_Y(2));
+    clockRows[3] = new ClockRow(&digital_clock4_h, &digital_clock4_m, &text4_content, &text10_content, ICON_X, ICON_Y(3));
+    clockRows[4] = new ClockRow(&digital_clock5_h, &digital_clock5_m, &text5_content, &text11_content, ICON_X, ICON_Y(4));
+    clockRows[5] = new ClockRow(&digital_clock6_h, &digital_clock6_m, &text6_content, &text12_content, ICON_X, ICON_Y(5));
 }
