@@ -5,6 +5,7 @@
 #include <ArduinoJson.h>
 #include "waits_screen_wrapper.h"
 #include "waits_screen_helpers.h"
+#include "arduino_secrets.h"
 
 void init_waits_screen() {
     initRideRows();
@@ -13,7 +14,7 @@ void init_waits_screen() {
 void get_waits(char resortName[])
 {
     HTTPClient http;
-    char url[100] = "https://disney.hillshum.com/waitTimes/?previousResort=";
+    char url[100] = SECRET_API_ROOT "/waitTimes/?previousResort=";
     strncat(url, resortName, 20);
 
     Serial.printf("url: %s\n", url);

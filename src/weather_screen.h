@@ -6,6 +6,7 @@
 #include "weather_screen_helpers.h"
 #include "conditions.h"
 #include "weather_screen_wrapper.h"
+#include "arduino_secrets.h"
 
 #define CLOCK_ROW_COUNT 6
 
@@ -31,7 +32,7 @@ void get_weather()
     HTTPClient http;
 
     // Specify the URL
-    http.begin("https://disney.hillshum.com/getWeathers");
+    http.begin(SECRET_API_ROOT "/getWeathers");
 
     // Send the GET request
     int httpResponseCode = http.GET();
