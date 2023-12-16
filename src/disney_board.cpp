@@ -6,8 +6,9 @@
 #include "time_helpers.h"
 #include "weather_screen.h"
 #include "waits_screen/waits_screen.h"
+#include "Fonts/Roboto_Light_36.h"
 
-Inkplate display(INKPLATE_3BIT);
+Inkplate display(INKPLATE_1BIT);
 
 enum Screen
 {
@@ -53,8 +54,10 @@ int connectWifi()
     if (wifiMulti.run() == WL_CONNECTED) {
         Serial.println("");
         Serial.println("WiFi connected");
-        Serial.println("IP address: ");
+        Serial.print("IP address: ");
         Serial.println(WiFi.localIP());
+        Serial.print("SSID: ");
+        Serial.println(WiFi.SSID());
         return true;
     }
     return false;
@@ -63,10 +66,10 @@ int connectWifi()
 void drawLoadScreen()
 {
     display.clearDisplay();
-    display.setTextColor(0, 7);
-    display.setCursor(150, 320);
-    display.setTextSize(4);
-    display.print("Welcome to Inkplate 6!");
+    display.setFont(&Roboto_Light_36);
+    display.setCursor(50, 600);
+    display.setTextSize(1);
+    display.print("Connecting to WiFi...");
     display.display();
     
 }
@@ -74,20 +77,39 @@ void drawLoadScreen()
 void draw_weather()
 {
     init_timescreen();
-    get_weather();
-
-    Serial.println("got weather");
-    draw_timescreen();
+    if (get_weather())
+    {
+        Serial.println("got weather");
+        draw_timescreen();
+    }
 
 }
 
 void draw_wait_times()
 {
     init_waits_screen();
-    get_waits(lastResort);
+    if (get_waits(lastResort)) {
+        Serial.println("got wait times");
+        draw_waits_screen();
+    }
+}
 
-    Serial.println("got wait times");
-    draw_waits_screen();
+void drawNextScreen()
+{
+    display.setDisplayMode(INKPLATE_3BIT);
+    switch(nextScreen)
+    {
+        case Screen::WEATHER:
+            draw_weather();
+            nextScreen = Screen::WAITS;
+            break;
+        case Screen::WAITS:
+            draw_wait_times();
+            nextScreen = Screen::WEATHER;
+            break;
+    }
+    isFirstBoot = false;
+
 }
 
 void setup()
@@ -104,22 +126,26 @@ void setup()
     if (isFirstBoot)
     {
         drawLoadScreen();
-        isFirstBoot = false;
     }
 
-    connectWifi();
-
-    switch(nextScreen)
+    if (connectWifi())
     {
-        case Screen::WEATHER:
-            draw_weather();
-            nextScreen = Screen::WAITS;
-            break;
-        case Screen::WAITS:
-            draw_wait_times();
-            nextScreen = Screen::WEATHER;
-            break;
+        Serial.println("connected to wifi");
+        if (isFirstBoot) 
+        {
+            display.print("connected!");
+            display.partialUpdate();
+        }
+
+        drawNextScreen();
     }
+    else
+    {
+        Serial.println("failed to connect to wifi");
+        display.print("unable to connect");
+        display.display();
+    }
+
 
     esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
     esp_deep_sleep_start();

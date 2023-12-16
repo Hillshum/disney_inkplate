@@ -11,7 +11,7 @@ void init_waits_screen() {
     initRideRows();
 }
 
-void get_waits(char resortName[])
+bool get_waits(char resortName[])
 {
     HTTPClient http;
     char url[100] = SECRET_API_ROOT "/waitTimes/?previousResort=";
@@ -23,16 +23,19 @@ void get_waits(char resortName[])
 
     int httpResponseCode = http.GET();
 
-    if (!httpResponseCode > 0)
+    if (httpResponseCode <= 0)
     {
         Serial.print("Error code: ");
         Serial.println(httpResponseCode);
+        http.end();
+        return false;
     }
 
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
 
     String payload = http.getString();
+    http.end();
     Serial.println(payload);
 
     DynamicJsonDocument response(4096 * 2);
@@ -43,11 +46,10 @@ void get_waits(char resortName[])
     {
         Serial.print(F("deserializeJson() failed with code "));
         Serial.println(error.c_str());
-        return;
+        return false;
     }
 
     strcpy(resortName, response["id"].as<const char*>());
-    // String newResortName = response["name"].as<String>();
     ResortWaitsScreen::text0_content = response["name"].as<String>();
 
     JsonArray rides = response["rides"].as<JsonArray>();
@@ -76,6 +78,8 @@ void get_waits(char resortName[])
         rideRows[j]->setCurrentWait(-1);
         rideRows[j]->setName("");
     }
+
+    return true;
 
 };
 

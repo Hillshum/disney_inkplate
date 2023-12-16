@@ -10,7 +10,7 @@ private:
     String* temperature;
 
     String iconUrl;
-    int iconId;
+    int iconId = 0;
     bool isDay;
 
     int iconX;
@@ -89,6 +89,9 @@ public:
             icon = day_icons[iconId];
         } else {
             icon = night_icons[iconId];
+        }
+        if (icon == nullptr) {
+            return 0;
         }
         display.drawBitmap(iconX, iconY, icon, 64 , 64, 0, 7);
         return 1;
