@@ -1,4 +1,5 @@
 #include "Inkplate.h"
+#include "driver/rtc_io.h"
 #include "weather_screen_wrapper.h"
 #include "arduino_secrets.h"
 #include "time_helpers.h"
@@ -6,6 +7,17 @@
 #include "waits_screen/waits_screen.h"
 
 Inkplate display(INKPLATE_3BIT);
+
+enum Screen
+{
+    WEATHER,
+    WAITS
+};
+
+RTC_DATA_ATTR Screen nextScreen = Screen::WEATHER;
+RTC_DATA_ATTR bool isFirstBoot = true;
+
+#define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
 
 void connectWifi()
 {
@@ -76,13 +88,28 @@ void setup()
 
     Serial.println("serial monitor initialized");
     display.begin();
-    drawLoadScreen();
-
+    if (isFirstBoot)
+    {
+        drawLoadScreen();
+        isFirstBoot = false;
+    }
 
     connectWifi();
-    // draw_weather();
-    draw_wait_times();
 
+    switch(nextScreen)
+    {
+        case Screen::WEATHER:
+            draw_weather();
+            nextScreen = Screen::WAITS;
+            break;
+        case Screen::WAITS:
+            draw_wait_times();
+            nextScreen = Screen::WEATHER;
+            break;
+    }
+
+    esp_sleep_enable_timer_wakeup(5 * uS_TO_S_FACTOR);
+    esp_deep_sleep_start();
 }
 
 void loop()
