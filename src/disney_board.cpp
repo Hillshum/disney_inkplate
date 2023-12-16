@@ -16,6 +16,7 @@ enum Screen
 
 RTC_DATA_ATTR Screen nextScreen = Screen::WEATHER;
 RTC_DATA_ATTR bool isFirstBoot = true;
+RTC_DATA_ATTR char lastResort[20] = "";
 
 #define uS_TO_S_FACTOR 1000000 /* Conversion factor for micro seconds to seconds */
 
@@ -71,7 +72,7 @@ void draw_weather()
 void draw_wait_times()
 {
     init_waits_screen();
-    get_waits();
+    get_waits(lastResort);
 
     Serial.println("got wait times");
     draw_waits_screen();
