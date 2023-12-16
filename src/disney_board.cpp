@@ -3,7 +3,7 @@
 #include "arduino_secrets.h"
 #include "time_helpers.h"
 #include "weather_screen.h"
-#include "waits_screen_wrapper.h"
+#include "waits_screen/waits_screen.h"
 
 Inkplate display(INKPLATE_3BIT);
 
@@ -35,6 +35,36 @@ void connectWifi()
     }
 } //======================== END WIFI CONNECT =======================
 
+void drawLoadScreen()
+{
+    display.clearDisplay();
+    display.setTextColor(0, 7);
+    display.setCursor(150, 320);
+    display.setTextSize(4);
+    display.print("Welcome to Inkplate 6!");
+    display.display();
+    
+}
+
+void draw_weather()
+{
+    init_timescreen();
+    get_weather();
+
+    Serial.println("got weather");
+    draw_timescreen();
+
+}
+
+void draw_wait_times()
+{
+    init_waits_screen();
+    get_waits();
+
+    Serial.println("got wait times");
+    draw_waits_screen();
+}
+
 void setup()
 {
 
@@ -46,29 +76,13 @@ void setup()
 
     Serial.println("serial monitor initialized");
     display.begin();
-    display.clearDisplay();
+    drawLoadScreen();
 
-    ResortWaitsScreen::mainDraw();
-    display.display();
-
-    return;
-
-    display.setTextColor(0, 7);
-    display.setCursor(150, 320);
-    display.setTextSize(4);
-    display.print("Welcome to Inkplate 6!");
-    display.display();
-
-    init_timescreen();
 
     connectWifi();
+    // draw_weather();
+    draw_wait_times();
 
-    get_weather();
-
-    Serial.println("got weather");
-    display.clearDisplay();
-    draw_timescreen();
-    delay(3000);
 }
 
 void loop()
