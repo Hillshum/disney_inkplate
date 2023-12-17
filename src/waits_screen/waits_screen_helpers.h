@@ -3,7 +3,7 @@
 
 #include "waits_screen_wrapper.h"
 
-#define NUM_RIDES 4
+#define NUM_RIDES 6
 
 class RideRow {
 private: 
@@ -49,6 +49,8 @@ void initRideRows() {
     rideRows[1] = new RideRow(&text3_content, &text4_content);
     rideRows[2] = new RideRow(&text5_content, &text6_content);
     rideRows[3] = new RideRow(&text7_content, &text8_content);
+    rideRows[4] = new RideRow(&text9_content, &text10_content);
+    rideRows[5] = new RideRow(&text11_content, &text12_content);
     Serial.println("initialized ride rows");
 }
 
