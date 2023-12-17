@@ -7,6 +7,7 @@
 #include "weather_screen.h"
 #include "waits_screen/waits_screen.h"
 #include "Fonts/Roboto_Light_36.h"
+#include "load_screen.h"
 
 Inkplate display(INKPLATE_1BIT);
 
@@ -68,16 +69,7 @@ int connectWifi()
     return false;
 }
 
-void drawLoadScreen()
-{
-    display.clearDisplay();
-    display.setFont(&Roboto_Light_36);
-    display.setCursor(50, 500);
-    display.setTextSize(1);
-    display.print("Tapping into the magic...");
-    display.display();
-    
-}
+
 
 void draw_weather()
 {
@@ -127,7 +119,9 @@ void setup()
     }
 
     Serial.println("serial monitor initialized");
+
     display.begin();
+
     if (isFirstBoot)
     {
         drawLoadScreen();
@@ -138,10 +132,7 @@ void setup()
         Serial.println("connected to wifi");
         if (isFirstBoot) 
         {
-            display.print("connected!");
-            display.setCursor(50, 550);
-            display.print("Distilling information...");
-            display.partialUpdate();
+            drawConnectedScreen();
         }
 
         drawNextScreen();
