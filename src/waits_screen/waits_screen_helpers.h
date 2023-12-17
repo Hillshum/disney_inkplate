@@ -4,7 +4,7 @@
 #include "waits_screen_wrapper.h"
 
 #define NUM_RIDES 6
-#define MAX_CHARS_PER_LINE 40
+#define MAX_CHARS_PER_LINE 38
 
 class RideRow {
 private: 
