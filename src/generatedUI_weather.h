@@ -191,6 +191,9 @@ void mainDraw() {
         for (int j = 0; j < sizeof(digital_clock0_triangleX) / sizeof(digital_clock0_triangleX[0]); j += 3) {
             int temp[4] = {digital_clock0_h / 10 % 10, digital_clock0_h % 10, digital_clock0_m / 10 % 10, digital_clock0_m % 10};
             int b = digital_clock0_bitmask[temp[i]];
+            if (i == 0 && digital_clock0_h / 10 % 10 == 0) {
+                b = 0; // Don't draw leading zero
+            }
             if (b & (1 << ((j - 1) / (3 * 4)))) {
                 display.fillTriangle(
                     (int)((float)i * (float)digital_clock0_maxX / (float)digital_clock0_maxY * (float)digital_clock0_size * 1.1 + (float)digital_clock0_location_x + (float)digital_clock0_maxX / (float)digital_clock0_maxY * (float)digital_clock0_size * (float)digital_clock0_triangleX[j + 0] / (float)digital_clock0_maxX),
@@ -223,6 +226,9 @@ void mainDraw() {
         for (int j = 0; j < sizeof(digital_clock2_triangleX) / sizeof(digital_clock2_triangleX[0]); j += 3) {
             int temp[4] = {digital_clock2_h / 10 % 10, digital_clock2_h % 10, digital_clock2_m / 10 % 10, digital_clock2_m % 10};
             int b = digital_clock2_bitmask[temp[i]];
+            if (i == 0 && digital_clock2_h / 10 % 10 == 0) {
+                b = 0; // Don't draw leading zero
+            }
             if (b & (1 << ((j - 1) / (3 * 4)))) {
                 display.fillTriangle(
                     (int)((float)i * (float)digital_clock2_maxX / (float)digital_clock2_maxY * (float)digital_clock2_size * 1.1 + (float)digital_clock2_location_x + (float)digital_clock2_maxX / (float)digital_clock2_maxY * (float)digital_clock2_size * (float)digital_clock2_triangleX[j + 0] / (float)digital_clock2_maxX),
@@ -259,6 +265,9 @@ void mainDraw() {
         for (int j = 0; j < sizeof(digital_clock3_triangleX) / sizeof(digital_clock3_triangleX[0]); j += 3) {
             int temp[4] = {digital_clock3_h / 10 % 10, digital_clock3_h % 10, digital_clock3_m / 10 % 10, digital_clock3_m % 10};
             int b = digital_clock3_bitmask[temp[i]];
+            if (i == 0 && digital_clock3_h / 10 % 10 == 0) {
+                b = 0; // Don't draw leading zero
+            }
             if (b & (1 << ((j - 1) / (3 * 4)))) {
                 display.fillTriangle(
                     (int)((float)i * (float)digital_clock3_maxX / (float)digital_clock3_maxY * (float)digital_clock3_size * 1.1 + (float)digital_clock3_location_x + (float)digital_clock3_maxX / (float)digital_clock3_maxY * (float)digital_clock3_size * (float)digital_clock3_triangleX[j + 0] / (float)digital_clock3_maxX),
@@ -283,6 +292,9 @@ void mainDraw() {
         for (int j = 0; j < sizeof(digital_clock4_triangleX) / sizeof(digital_clock4_triangleX[0]); j += 3) {
             int temp[4] = {digital_clock4_h / 10 % 10, digital_clock4_h % 10, digital_clock4_m / 10 % 10, digital_clock4_m % 10};
             int b = digital_clock4_bitmask[temp[i]];
+            if (i == 0 && digital_clock4_h / 10 % 10 == 0) {
+                b = 0; // Don't draw leading zero
+            }
             if (b & (1 << ((j - 1) / (3 * 4)))) {
                 display.fillTriangle(
                     (int)((float)i * (float)digital_clock4_maxX / (float)digital_clock4_maxY * (float)digital_clock4_size * 1.1 + (float)digital_clock4_location_x + (float)digital_clock4_maxX / (float)digital_clock4_maxY * (float)digital_clock4_size * (float)digital_clock4_triangleX[j + 0] / (float)digital_clock4_maxX),
@@ -307,6 +319,9 @@ void mainDraw() {
         for (int j = 0; j < sizeof(digital_clock5_triangleX) / sizeof(digital_clock5_triangleX[0]); j += 3) {
             int temp[4] = {digital_clock5_h / 10 % 10, digital_clock5_h % 10, digital_clock5_m / 10 % 10, digital_clock5_m % 10};
             int b = digital_clock5_bitmask[temp[i]];
+            if (i == 0 && digital_clock5_h / 10 % 10 == 0) {
+                b = 0; // Don't draw leading zero
+            }
             if (b & (1 << ((j - 1) / (3 * 4)))) {
                 display.fillTriangle(
                     (int)((float)i * (float)digital_clock5_maxX / (float)digital_clock5_maxY * (float)digital_clock5_size * 1.1 + (float)digital_clock5_location_x + (float)digital_clock5_maxX / (float)digital_clock5_maxY * (float)digital_clock5_size * (float)digital_clock5_triangleX[j + 0] / (float)digital_clock5_maxX),
@@ -331,6 +346,9 @@ void mainDraw() {
         for (int j = 0; j < sizeof(digital_clock6_triangleX) / sizeof(digital_clock6_triangleX[0]); j += 3) {
             int temp[4] = {digital_clock6_h / 10 % 10, digital_clock6_h % 10, digital_clock6_m / 10 % 10, digital_clock6_m % 10};
             int b = digital_clock6_bitmask[temp[i]];
+            if (i == 0 && digital_clock6_h / 10 % 10 == 0) {
+                b = 0; // Don't draw leading zero
+            }
             if (b & (1 << ((j - 1) / (3 * 4)))) {
                 display.fillTriangle(
                     (int)((float)i * (float)digital_clock6_maxX / (float)digital_clock6_maxY * (float)digital_clock6_size * 1.1 + (float)digital_clock6_location_x + (float)digital_clock6_maxX / (float)digital_clock6_maxY * (float)digital_clock6_size * (float)digital_clock6_triangleX[j + 0] / (float)digital_clock6_maxX),
