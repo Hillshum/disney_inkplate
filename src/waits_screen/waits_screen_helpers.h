@@ -4,12 +4,31 @@
 #include "waits_screen_wrapper.h"
 
 #define NUM_RIDES 6
+#define MAX_CHARS_PER_LINE 40
 
 class RideRow {
 private: 
     String* waitTime;
     String* name;
+    String fullName;
+
+    bool bIsOpen;
     int currentWait;
+
+    void updateWaitString() {
+
+        if (currentWait == -1)
+        {
+            *waitTime = String("");
+            return;
+        }
+
+        String newWaitString = String(currentWait);
+        newWaitString.concat(" min");
+        Serial.printf("new wait string: %s\n", newWaitString.c_str());
+        *waitTime = newWaitString;
+    }
+
 
 public: 
 
@@ -19,23 +38,37 @@ public:
     }
 
     void setName(const String &newName) {
+
+        fullName = newName;
         *name = newName;
+
+        if (newName.length() > MAX_CHARS_PER_LINE)
+        {
+            *name = newName.substring(0, MAX_CHARS_PER_LINE-3);
+            name->concat("...");
+        }
     }
 
     void setCurrentWait(int newWait) {
 
         currentWait = newWait;
-        if (newWait == -1)
+
+        updateWaitString();
+
+    }
+
+    void setOpen(bool isOpen) {
+        bIsOpen = isOpen;
+        if (isOpen)
         {
-            *waitTime = String("");
+            updateWaitString();
             return;
         }
+        *waitTime = String("Closed");
+    }
 
-        String newWaitString = String(newWait);
-        newWaitString.concat(" min");
-        Serial.printf("new wait string: %s\n", newWaitString.c_str());
-        *waitTime = newWaitString;
-        Serial.printf("setting wait to %d\n", newWait);
+    bool isOpen() {
+        return bIsOpen;
     }
 
 };

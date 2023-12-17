@@ -64,6 +64,7 @@ bool get_waits(char resortName[])
         String name = ride["name"].as<String>();
         rideRows[i]->setName(name);
         Serial.println("set name");
+        rideRows[i]->setOpen(ride["is_open"].as<bool>());
         i++;
 
         if (i == NUM_RIDES)
