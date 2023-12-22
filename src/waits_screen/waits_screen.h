@@ -54,6 +54,7 @@ bool get_waits(char resortName[])
 
     JsonArray rides = response["rides"].as<JsonArray>();
 
+    // TODO: Check for empty array and don't draw screen
     int i = 0;
     for (JsonObject ride : rides)
     {
