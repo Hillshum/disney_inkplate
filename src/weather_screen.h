@@ -94,6 +94,7 @@ bool get_weather()
         clockRows[i]->setTemperature(String(temp,0) + "°F");
         clockRows[i]->setIsDay(isDay);
         clockRows[i]->setIconUrl("https://disney.hillshum.com/assets/icons/" + String(iconId) + ".png");
+        clockRows[i]->setIsAm(isAM);
         Serial.printf("icon url: %s\n", clockRows[i]->getIconUrl().c_str());
         i++;
 
@@ -114,6 +115,7 @@ void draw_timescreen()
     {
         bool success = clockRows[i]->drawIcon();
         Serial.printf("draw icon %d: %d\n", i, success);
+        clockRows[i]->drawAmPm();
 
     }
 

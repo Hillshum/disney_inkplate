@@ -1,12 +1,17 @@
 #include "weather_screen_wrapper.h"
 #include "binary_icons/day/day_icons.h"
 #include "binary_icons/night/night_icons.h"
-
+#include "Fonts/FreeSansOblique12pt7b.h"
 
 #define ICON_X 700
 #define ICON_Y_START 95
 #define ICON_Y_INCREMENT 85
 #define ICON_Y(i) ICON_Y_START + ICON_Y_INCREMENT * (i)
+
+#define AM_X_OFFSET -230
+#define AM_Y_OFFSET 30
+#define PM_Y_OFFSET 50
+
 class ClockRow {
 private:
     int* hours;
@@ -17,6 +22,7 @@ private:
     String iconUrl;
     int iconId = 0;
     bool isDay;
+    bool isAm;
 
     int iconX;
     int iconY;
@@ -86,6 +92,25 @@ public:
 
     void setIsDay(bool newIsDay) {
         isDay = newIsDay;
+    }
+
+    bool getIsAm() {
+        return isAm;
+    }
+
+    void setIsAm(bool newIsAm) {
+        isAm = newIsAm;
+    }
+
+    void drawAmPm()
+    {
+        int x_position = AM_X_OFFSET + iconX;
+        int y_position = (isAm ? AM_Y_OFFSET : PM_Y_OFFSET) + iconY;
+        display.setCursor(x_position, y_position);
+        display.setFont(&FreeSansOblique12pt7b);
+        display.setTextColor(0, 7);
+        display.setTextSize(1);
+        display.print(isAm ? "AM" : "PM");
     }
 
     bool drawIcon() {
