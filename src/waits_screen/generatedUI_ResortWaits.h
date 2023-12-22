@@ -16,7 +16,7 @@ int line0_start_x = 0;
 int line0_start_y = 115;
 int line0_end_x = 800;
 int line0_end_y = 115;
-int line0_color = 1;
+int line0_color = 0;
 int line0_thickness = 10;
 int line0_gradient = 0;
 
@@ -29,7 +29,7 @@ int line1_start_x = 0;
 int line1_start_y = 200;
 int line1_end_x = 800;
 int line1_end_y = 200;
-int line1_color = 6;
+int line1_color = 3;
 int line1_thickness = 5;
 int line1_gradient = 0;
 
@@ -42,7 +42,7 @@ int line2_start_x = 0;
 int line2_start_y = 280;
 int line2_end_x = 800;
 int line2_end_y = 280;
-int line2_color = 6;
+int line2_color = 3;
 int line2_thickness = 5;
 int line2_gradient = 0;
 
@@ -85,7 +85,7 @@ int line3_start_x = 0;
 int line3_start_y = 360;
 int line3_end_x = 800;
 int line3_end_y = 360;
-int line3_color = 6;
+int line3_color = 3;
 int line3_thickness = 5;
 int line3_gradient = 0;
 
@@ -93,7 +93,7 @@ int line4_start_x = 0;
 int line4_start_y = 440;
 int line4_end_x = 800;
 int line4_end_y = 440;
-int line4_color = 6;
+int line4_color = 3;
 int line4_thickness = 5;
 int line4_gradient = 0;
 
@@ -101,7 +101,7 @@ int line5_start_x = 0;
 int line5_start_y = 520;
 int line5_end_x = 800;
 int line5_end_y = 520;
-int line5_color = 6;
+int line5_color = 3;
 int line5_thickness = 5;
 int line5_gradient = 0;
 
