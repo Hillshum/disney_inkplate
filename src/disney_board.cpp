@@ -79,16 +79,30 @@ void draw_weather()
         Serial.println("got weather");
         draw_timescreen();
     }
+    nextScreen = Screen::WAITS;
 
 }
 
 void draw_wait_times()
 {
     init_waits_screen();
-    if (get_waits(lastResort)) {
-        Serial.println("got wait times");
-        draw_waits_screen();
+    bool success = false;
+    for (int i = 0; i < 3; i++)
+    {
+        if (get_waits(lastResort))
+        {
+            success = true;
+            break;
+        }
     }
+    if (!success) {
+        Serial.println("failed to get wait times");
+        return;
+    }
+
+    Serial.println("got wait times");
+    draw_waits_screen();
+    nextScreen = Screen::WEATHER;
 }
 
 void drawNextScreen()
@@ -98,11 +112,9 @@ void drawNextScreen()
     {
         case Screen::WEATHER:
             draw_weather();
-            nextScreen = Screen::WAITS;
             break;
         case Screen::WAITS:
             draw_wait_times();
-            nextScreen = Screen::WEATHER;
             break;
     }
     isFirstBoot = false;
