@@ -28,17 +28,17 @@ void drawMouseEars(int x, int y, int radius, int rotation = 0)
     double rotationRad = rotation * PI / 180.0;
 
     double ear1RotationRad = rotationRad - PI / 4;
-    Serial.printf("ear1RotationRad: %f\n", ear1RotationRad);
+    // Serial.printf("ear1RotationRad: %f\n", ear1RotationRad);
     int earX1 = x + earDistance * cos(ear1RotationRad);
     int earY1 = y + earDistance * sin(ear1RotationRad);
-    Serial.printf("earX1: %d, earY1: %d\n", earX1, earY1);
+    // Serial.printf("earX1: %d, earY1: %d\n", earX1, earY1);
     // float ear2RotationRad = rotationRad - PI / 4;
 
     double ear2RotationRad = rotationRad - PI / 4 * 3;
-    Serial.printf("ear2RotationRad: %f\n", ear2RotationRad);
+    // Serial.printf("ear2RotationRad: %f\n", ear2RotationRad);
     int earX2 = x + earDistance * cos(ear2RotationRad);
     int earY2 = y + earDistance * sin(ear2RotationRad);
-    Serial.printf("earX2: %d, earY2: %d\n", earX2, earY2);
+    // Serial.printf("earX2: %d, earY2: %d\n", earX2, earY2);
     
     
     // Draw the rotated ears
