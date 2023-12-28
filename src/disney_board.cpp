@@ -152,8 +152,11 @@ void setup()
     else
     {
         Serial.println("failed to connect to wifi");
-        display.print("unable to connect");
-        display.display();
+        if (isFirstBoot)
+        {
+            display.print("unable to connect");
+            display.display();
+        }
     }
 
 
