@@ -15,7 +15,7 @@ bool get_waits(char resortName[])
 {
     HTTPClient http;
     char url[100] = SECRET_API_ROOT "/waitTimes/?previousResort=";
-    strncat(url, resortName, 20);
+    strlcat(url, resortName, 100);
 
     Serial.printf("url: %s\n", url);
 
