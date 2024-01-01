@@ -93,9 +93,7 @@ bool get_weather()
         clockRows[i]->setIconId(iconId);
         clockRows[i]->setTemperature(String(temp,0) + "°F");
         clockRows[i]->setIsDay(isDay);
-        clockRows[i]->setIconUrl("https://disney.hillshum.com/assets/icons/" + String(iconId) + ".png");
         clockRows[i]->setIsAm(isAM);
-        Serial.printf("icon url: %s\n", clockRows[i]->getIconUrl().c_str());
         i++;
 
         if (i >= CLOCK_ROW_COUNT)

@@ -19,7 +19,6 @@ private:
     String* name;
     String* temperature;
 
-    String iconUrl;
     int iconId = 0;
     bool isDay;
     bool isAm;
@@ -68,14 +67,6 @@ public:
 
     void setTemperature(const String &newTemperature) {
         *temperature = newTemperature;
-    }
-
-    String getIconUrl() {
-        return iconUrl;
-    }   
-
-    void setIconUrl(const String &newIconUrl) {
-        iconUrl = newIconUrl;
     }
 
     int getIconId() {
