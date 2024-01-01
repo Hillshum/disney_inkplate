@@ -33,7 +33,7 @@ bool get_weather()
     // Check the response code
     if (httpResponseCode <= 0)
     {
-        Serial.print("Error code: ");
+        Serial.print(F("Error code: "));
         Serial.println(httpResponseCode);
         return false;
     }
@@ -47,7 +47,7 @@ bool get_weather()
     Serial.println(payload);
 
     // Parse the JSON array
-    DynamicJsonDocument response(4096 * 2);
+    StaticJsonDocument<768> response;
     DeserializationError error = deserializeJson(response, payload);
     Serial.println("deserialized json");
 

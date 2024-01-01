@@ -38,7 +38,7 @@ bool get_waits(char resortName[])
     http.end();
     Serial.println(payload);
 
-    DynamicJsonDocument response(4096 * 2);
+    StaticJsonDocument<1536> response;
     DeserializationError error = deserializeJson(response, payload);
     Serial.println("deserialized json");
 
