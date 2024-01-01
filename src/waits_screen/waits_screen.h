@@ -62,7 +62,7 @@ bool get_waits(char resortName[])
         int waitTime = ride["wait_time"].as<int>();
         Serial.printf("Wait: %d\n", waitTime);
         rideRows[i]->setCurrentWait(waitTime);
-        String name = ride["name"].as<String>();
+        const char * name = ride["name"].as<const char*>();
         rideRows[i]->setName(name);
         Serial.println("set name");
         rideRows[i]->setOpen(ride["is_open"].as<bool>());

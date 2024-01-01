@@ -75,21 +75,14 @@ public:
         this->nameFont = nameFont;
     }
 
-    void setName(const String &newName) {
+    void setName(const char * newName) {
 
         fullName = newName;
         char nameToTrim[100];
-        newName.toCharArray(nameToTrim, 100); 
+        strlcpy(nameToTrim, newName, 100);
 
         trimNameString(nameToTrim);
-        *name = String(nameToTrim);
-        // *name = newName;
-
-        // if (newName.length() > MAX_CHARS_PER_LINE)
-        // {
-        //     *name = newName.substring(0, MAX_CHARS_PER_LINE-3);
-        //     name->concat("...");
-        // }
+        *name = nameToTrim;
     }
 
     void setCurrentWait(int newWait) {
