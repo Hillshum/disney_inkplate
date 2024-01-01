@@ -106,11 +106,8 @@ with open("./include/conditions.h", "w") as f:
         id = condition["code"] - 1000
         f.write("\tconditions[" + str(id)  + "] = ")
         f.write(f'new Condition();\n')
-        f.write(f'\tconditions[{id}]->dayName = "{condition["day"]}";\n')
-        f.write(f'\tconditions[{id}]->nightName = "{condition["night"]}";\n')
-        # f.write(f'\tstrcpy(conditions[{id}]->dayName, "{condition["day"]}");\n')
-        # f.write(f'\tstrcpy(conditions[{id}]->nightName, "{condition["night"]}");\n')
-        # f.write(f'\tconditions[{id}]->icon = &icon_{condition["icon"]};\n\n')
+        # f.write(f'\tconditions[{id}]->dayName = "{condition["day"]}";\n')
+        # f.write(f'\tconditions[{id}]->nightName = "{condition["night"]}";\n')
         f.write(f'\tconditions[{id}]->iconId = {condition["icon"]};\n\n')
 
     f.write("}\n\n")
