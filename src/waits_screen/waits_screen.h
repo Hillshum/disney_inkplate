@@ -13,6 +13,8 @@ void init_waits_screen() {
 
 bool get_waits(char resortName[])
 {
+    WiFiClientSecure client;
+    client.setInsecure();
     HTTPClient http;
     char url[100] = SECRET_API_ROOT "/waitTimes/?previousResort=";
     strlcat(url, resortName, 100);
@@ -20,6 +22,7 @@ bool get_waits(char resortName[])
     Serial.printf("url: %s\n", url);
 
     http.begin(url);
+    http.useHTTP10(true);
 
     int httpResponseCode = http.GET();
 
@@ -34,17 +37,16 @@ bool get_waits(char resortName[])
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
 
-    String payload = http.getString();
-    http.end();
-    Serial.println(payload);
+    Stream &stream = http.getStream();
 
     StaticJsonDocument<1536> response;
-    DeserializationError error = deserializeJson(response, payload);
+    DeserializationError error = deserializeJson(response, stream);
     Serial.println("deserialized json");
 
+    http.end();
     if (error)
     {
-        Serial.print(F("deserializeJson() failed with code "));
+        Serial.print("deserializeJson() failed with code ");
         Serial.println(error.c_str());
         return false;
     }

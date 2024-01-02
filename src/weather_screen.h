@@ -2,6 +2,7 @@
 #define WEATHER_SCREEN_H
 
 #include <HTTPClient.h>
+#include <WiFiClient.h>
 #include <ArduinoJson.h>
 #include "weather_screen_helpers.h"
 #include "conditions.h"
@@ -21,11 +22,14 @@ void init_timescreen()
 
 bool get_weather()
 {
+    WiFiClientSecure client;
+    client.setInsecure();
     // Create an HTTPClient object
     HTTPClient http;
 
     // Specify the URL
-    http.begin(SECRET_API_ROOT "/getWeathers");
+    http.begin(client, SECRET_API_ROOT "/getWeathers");
+    http.useHTTP10(true);
 
     // Send the GET request
     int httpResponseCode = http.GET();
@@ -41,14 +45,12 @@ bool get_weather()
     Serial.print("HTTP Response code: ");
     Serial.println(httpResponseCode);
 
-    // Get the response payload
-    String payload = http.getString();
-    http.end();
-    Serial.println(payload);
+    // create a new stream to hold the response data
+    Stream &stream = http.getStream();
 
     // Parse the JSON array
     StaticJsonDocument<768> response;
-    DeserializationError error = deserializeJson(response, payload);
+    DeserializationError error = deserializeJson(response, stream);
     Serial.println("deserialized json");
 
     // Check for parsing errors
@@ -62,6 +64,7 @@ bool get_weather()
     // Get the array from the JSON document
     JsonArray parksArray = response.as<JsonArray>();
 
+    http.end();
     // Iterate over the array and populate the Park structs
     int i = 0;
     for (JsonObject parkObj : parksArray)
