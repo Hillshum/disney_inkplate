@@ -5,6 +5,7 @@
 
 #define NUM_RIDES 6
 #define MAX_CHARS_PER_LINE 38
+#define MAX_NAME_LEN_PLUS_NULL 100
 
 class RideRow {
 private: 
@@ -73,13 +74,14 @@ public:
         this->waitTime = waitTime;
         this->name = name;
         this->nameFont = nameFont;
+        this->name->reserve(MAX_NAME_LEN_PLUS_NULL);
     }
 
     void setName(const char * newName) {
 
         fullName = newName;
-        char nameToTrim[100];
-        strlcpy(nameToTrim, newName, 100);
+        char nameToTrim[MAX_NAME_LEN_PLUS_NULL];
+        strlcpy(nameToTrim, newName, MAX_NAME_LEN_PLUS_NULL);
 
         trimNameString(nameToTrim);
         *name = nameToTrim;

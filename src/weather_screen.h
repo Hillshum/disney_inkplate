@@ -90,11 +90,16 @@ bool get_weather()
         }
         bool isAM = timeinfo->tm_hour < 12;
         
+        const unsigned int TEMPERATURE_STRING_LENGTH = 5;
+        char tempString[TEMPERATURE_STRING_LENGTH];
+        dtostrf(temp, TEMPERATURE_STRING_LENGTH - 2, 0, tempString);
+        strlcat(tempString, "F", TEMPERATURE_STRING_LENGTH);
+
         clockRows[i]->setName(name);
         clockRows[i]->setHours(hour);
         clockRows[i]->setMinutes(timeinfo->tm_min);
         clockRows[i]->setIconId(iconId);
-        clockRows[i]->setTemperature(String(temp,0) + "°F");
+        clockRows[i]->setTemperature(tempString);
         clockRows[i]->setIsDay(isDay);
         clockRows[i]->setIsAm(isAM);
         i++;
